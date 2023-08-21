@@ -5,11 +5,13 @@
   "scripts": {
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
     "build": "tsc -p tsconfig.json",
-    "prepublishOnly": "npm run ci && npm run build"
+    "prepublishOnly": "npm run ci && npm run build",
+    "release": "npm run ci && release-it"
   },
   "devDependencies": {
     "@types/sprintf-js": "^1.1.2",
     "prettier": "^3.0.2",
+    "release-it": "^16.1.5",
     "typescript": "^5.0.3"
   },
   "dependencies": {
