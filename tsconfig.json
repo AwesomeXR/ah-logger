@@ -5,7 +5,8 @@
     "strict": true,
     "declaration": true,
     "lib": ["es2015", "DOM"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "outDir": "dist",
   },
   "include": ["src"]
 }
