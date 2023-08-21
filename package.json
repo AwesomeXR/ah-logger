@@ -1,7 +1,11 @@
 {
   "name": "ah-logger",
   "version": "3.2.6",
-  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "scripts": {
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
     "build": "tsc -p tsconfig.json",
