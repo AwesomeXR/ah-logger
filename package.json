@@ -3,14 +3,13 @@
   "version": "3.2.5",
   "main": "./dist/index.js",
   "scripts": {
-    "fix": "ah-workflow fix",
-    "ci": "ah-workflow ci",
-    "build": "ah-workflow build",
+    "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
+    "build": "tsc -p tsconfig.json",
     "prepublishOnly": "npm run ci && npm run build"
   },
   "devDependencies": {
     "@types/sprintf-js": "^1.1.2",
-    "ah-workflow": "workspace:^",
+    "prettier": "^3.0.2",
     "typescript": "^5.0.3"
   },
   "dependencies": {

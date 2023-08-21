@@ -5,7 +5,10 @@ import { ILoggerLevel, LoggerLevelNameMap } from './ILoggerLevel';
 import { formatMsg } from './formatMsg';
 
 export class Logger {
-  constructor(readonly name: string, protected appenders: IBaseAppender[] = [new ConsoleAppender()]) {}
+  constructor(
+    readonly name: string,
+    protected appenders: IBaseAppender[] = [new ConsoleAppender()]
+  ) {}
 
   // 默认打开所有日志
   protected _selfLogLevel = ILoggerLevel.ALL;
