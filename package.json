@@ -1,6 +1,6 @@
 {
   "name": "ah-logger",
-  "version": "3.2.7",
+  "version": "3.2.8",
   "files": [
     "dist"
   ],
@@ -9,7 +9,6 @@
   "scripts": {
     "ci": "prettier --check src && tsc -p tsconfig.json --noEmit",
     "build": "tsc -p tsconfig.json",
-    
     "release": "npm run ci && npm run build && release-it"
   },
   "devDependencies": {
