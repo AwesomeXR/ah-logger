@@ -2,16 +2,30 @@ import { ConsoleAppender, IBaseAppender } from './Appender';
 import { formatDate } from './formatDate';
 import { GlobalLogLevel } from './GlobalLogLevel';
 import { ILoggerLevel, LoggerLevelNameMap } from './ILoggerLevel';
-import { formatMsg } from './formatMsg';
+import { sprintf } from 'sprintf-js';
 
 export class Logger {
   constructor(
     readonly name: string,
-    protected appenders: IBaseAppender[] = [new ConsoleAppender()]
+    public appenders: IBaseAppender[] = [new ConsoleAppender()],
+
+    /**
+     * The format string for log messages.
+     *
+     * - `date`: The date and time of the log message.
+     * - `name`: The name of the logger.
+     * - `level`: The log level of the message.
+     * - `msg`: The message itself.
+     *
+     * Default: `'[%(date)s|%(name)s|%(level)s] %(msg)s'`
+     */
+    public fmt = '[%(date)s|%(name)s|%(level)s] %(msg)s'
   ) {}
 
   // 默认打开所有日志
   protected _selfLogLevel = ILoggerLevel.ALL;
+
+  private _fmtCtx = { date: '', name: '', level: '', msg: '' };
 
   append(level: ILoggerLevel, fmt: string, ...args: any) {
     // 丢掉低级别日志
@@ -19,10 +33,14 @@ export class Logger {
 
     // 加前缀
     const levelLabel = LoggerLevelNameMap.get(level) || level + '';
-    fmt = `[${formatDate('YYYY-MM-DD HH:mm:ss.S')}|${this.name}|${levelLabel}]` + ' ' + fmt;
+
+    this._fmtCtx.date = formatDate('YYYY-MM-DD HH:mm:ss.S');
+    this._fmtCtx.name = this.name;
+    this._fmtCtx.level = levelLabel;
+    this._fmtCtx.msg = sprintf(fmt, ...args);
 
     // 格式化 msg
-    const msg = formatMsg(fmt, ...args);
+    const msg = sprintf(this.fmt, this._fmtCtx);
 
     for (let i = 0; i < this.appenders.length; i++) {
       const appender = this.appenders[i];
